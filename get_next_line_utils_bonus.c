@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 10:31:14 by pabromer          #+#    #+#             */
-/*   Updated: 2024/06/10 13:25:28 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:03:23 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(const char *s1)
 {
@@ -40,7 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	join = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	join = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!join)
 		return (NULL);
 	i = 0;

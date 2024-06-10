@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabromer <pabromer@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:27:06 by pabromer          #+#    #+#             */
-/*   Updated: 2024/06/10 13:24:55 by pabromer         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:34:15 by pabromer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*read_file(int fd, char *leftover)
 {
@@ -80,23 +80,26 @@ char	*find_leftover(char *leftover)
 char	*get_next_line(int fd)
 {
 	char			*newline;
-	static char		*leftover;
+	static char		*leftover[4096];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		if (leftover)
-			free(leftover);
+		if (leftover[fd])
+		{
+			free(leftover[fd]);
+			leftover[fd] = NULL;
+		}
 		return (NULL);
 	}
-	if (!leftover)
-		leftover = ft_strdup("");
-	leftover = read_file(fd, leftover);
-	newline = find_line(leftover);
-	if (!newline && !leftover)
-		return (free(leftover), NULL);
-	leftover = find_leftover(leftover);
-	if (!leftover)
-		free(leftover);
+	if (!leftover[fd])
+		leftover[fd] = ft_strdup("");
+	leftover[fd] = read_file(fd, leftover[fd]);
+	newline = find_line(leftover[fd]);
+	if (!newline && !leftover[fd])
+		return (free(leftover[fd]), NULL);
+	leftover[fd] = find_leftover(leftover[fd]);
+	if (!leftover[fd])
+		free(leftover[fd]);
 	if (!newline || ft_strlen(newline) <= 0 || newline == NULL)
 		return (free(newline), NULL);
 	return (newline);
